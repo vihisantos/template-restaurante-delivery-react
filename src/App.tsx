@@ -116,13 +116,13 @@ export default function App() {
                     </div>
 
                     <div className="flex items-center gap-4">
-                        <button onClick={toggle} className="p-2.5 rounded-xl hover:bg-[var(--bg-alt)] transition-colors text-[var(--text-muted)]">
+                        <button type="button" onClick={toggle} aria-label={dark ? 'Ativar tema claro' : 'Ativar tema escuro'} aria-pressed={dark} className="p-2.5 rounded-xl hover:bg-[var(--bg-alt)] transition-colors text-[var(--text-muted)]">
                             {dark ? <Sun size={20} /> : <Moon size={20} />}
                         </button>
                         <a href={WHATSAPP} target="_blank" rel="noopener noreferrer" className="hidden md:inline-flex items-center gap-2 px-7 py-3 bg-[var(--color-brand)] text-white rounded-xl font-bold text-sm uppercase tracking-wider hover:bg-[var(--color-brand-dark)] transition-all hover:shadow-lg hover:shadow-[var(--color-brand)]/30">
                             <ShoppingBag size={16} /> Pedir Agora
                         </a>
-                        <button onClick={() => setMenuOpen(!menuOpen)} className="md:hidden p-2 text-[var(--text)]">
+                        <button type="button" onClick={() => setMenuOpen(!menuOpen)} aria-label={menuOpen ? 'Fechar menu de navegação' : 'Abrir menu de navegação'} aria-expanded={menuOpen} aria-controls="mobile-navigation" className="md:hidden p-2 text-[var(--text)]">
                             {menuOpen ? <X size={24} /> : <Menu size={24} />}
                         </button>
                     </div>
@@ -131,6 +131,8 @@ export default function App() {
                 <AnimatePresence>
                     {menuOpen && (
                         <motion.div
+                            id="mobile-navigation"
+                            aria-label="Navegação móvel"
                             initial={{ opacity: 0, height: 0 }}
                             animate={{ opacity: 1, height: 'auto' }}
                             exit={{ opacity: 0, height: 0 }}
@@ -302,6 +304,7 @@ export default function App() {
                                 whileHover={{ scale: 1.05 }}
                                 whileTap={{ scale: 0.95 }}
                                 onClick={() => setActiveCategory(i)}
+                                aria-pressed={activeCategory === i}
                                 className={`flex items-center gap-2 px-6 py-3.5 rounded-xl font-bold text-sm transition-all ${activeCategory === i ? 'bg-[var(--color-brand)] text-white shadow-xl shadow-[var(--color-brand)]/20' : 'bg-[var(--card)] text-[var(--text-muted)] border border-[var(--border)] hover:border-[var(--color-brand)]/30 hover:shadow-md'}`}
                             >
                                 <span>{cat.emoji}</span>
